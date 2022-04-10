@@ -1,0 +1,18 @@
+[package]
+name = "updater"
+version = "0.1.0"
+edition = "2021"
+authors = ["Joeri Abbo <joeriabbo@hotmail.com>"]
+description = "A tool to automate update linux devices"
+readme = "README.md"
+homepage = "https://github.com/Joeri-Abbo/linux-updater"
+repository = "https://github.com/Joeri-Abbo/linux-updater"
+keywords = ["cli", "automatisation"]
+categories = ["command-line-utilities"]
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+ssh2 = "0.9"
+rustc-serialize = "0.3"
+serde = { version = "1.0.104", features = ["derive"] }
+serde_json = "1.0.48"
