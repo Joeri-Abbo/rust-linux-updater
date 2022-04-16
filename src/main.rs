@@ -3,6 +3,7 @@ use std::net::TcpStream;
 use std::fs::File;
 use std::path::Path;
 use serde::Deserialize;
+use std::io::Read;
 
 #[derive(Deserialize)]
 // #[serde(rename_all = “camelCase”)]
@@ -34,6 +35,10 @@ fn main() {
         println!("Updating {}", &ip);
         //
         channel.exec("sudo apt update && sudo apt -y upgrade && sudo apt -y dist-upgrade").unwrap();
+        let mut s = String::new();
+        channel.read_to_string(&mut s).unwrap();
+        println!("{}", s);
+
         channel.wait_close().ok();
         // println!("{}", channel.exit_status().unwrap());
         println!("Finished {}", &ip);
