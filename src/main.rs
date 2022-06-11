@@ -1,9 +1,9 @@
-use ssh2::Session;
-use std::net::TcpStream;
-use std::fs::File;
-use std::path::Path;
 use serde::Deserialize;
+use ssh2::Session;
+use std::fs::File;
 use std::io::Read;
+use std::net::TcpStream;
+use std::path::Path;
 
 #[derive(Deserialize)]
 // #[serde(rename_all = “camelCase”)]
@@ -29,12 +29,13 @@ fn main() {
         sess.set_tcp_stream(tcp);
         sess.handshake().unwrap();
 
-        sess.userauth_password(&username, &password)
-            .unwrap();
+        sess.userauth_password(&username, &password).unwrap();
         let mut channel = sess.channel_session().unwrap();
         println!("Updating {}", &ip);
         //
-        channel.exec("sudo apt update && sudo apt -y upgrade && sudo apt -y dist-upgrade").unwrap();
+        channel
+            .exec("sudo apt update && sudo apt -y upgrade && sudo apt -y dist-upgrade")
+            .unwrap();
         let mut s = String::new();
         channel.read_to_string(&mut s).unwrap();
         println!("{}", s);
@@ -42,6 +43,5 @@ fn main() {
         channel.wait_close().ok();
         // println!("{}", channel.exit_status().unwrap());
         println!("Finished {}", &ip);
-
     }
 }
