@@ -6,7 +6,6 @@ use std::net::TcpStream;
 use std::path::Path;
 
 #[derive(Deserialize)]
-// #[serde(rename_all = “camelCase”)]
 struct Device {
     ip: String,
     username: String,
